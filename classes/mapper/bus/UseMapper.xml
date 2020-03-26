@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.device.bus.mapper.UseMapper">
+  <resultMap id="BaseResultMap" type="com.device.bus.domain.Use">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dname" jdbcType="VARCHAR" property="dname" />
+    <result column="dnumber" jdbcType="VARCHAR" property="dnumber" />
+    <result column="creatime" jdbcType="TIMESTAMP" property="creatime" />
+    <result column="problem" jdbcType="INTEGER" property="problem" />
+    <result column="yxtime" jdbcType="VARCHAR" property="yxtime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dname, dnumber, creatime, problem, yxtime, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_use
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_use
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.device.bus.domain.Use">
+    insert into bus_use (id, dname, dnumber, 
+      creatime, problem, yxtime, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR}, #{dnumber,jdbcType=VARCHAR}, 
+      #{creatime,jdbcType=TIMESTAMP}, #{problem,jdbcType=INTEGER}, #{yxtime,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.device.bus.domain.Use">
+    insert into bus_use
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dname != null">
+        dname,
+      </if>
+      <if test="dnumber != null">
+        dnumber,
+      </if>
+      <if test="creatime != null">
+        creatime,
+      </if>
+      <if test="problem != null">
+        problem,
+      </if>
+      <if test="yxtime != null">
+        yxtime,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null">
+        #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dnumber != null">
+        #{dnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null">
+        #{creatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="problem != null">
+        #{problem,jdbcType=INTEGER},
+      </if>
+      <if test="yxtime != null">
+        #{yxtime,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.device.bus.domain.Use">
+    update bus_use
+    <set>
+      <if test="dname != null">
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dnumber != null">
+        dnumber = #{dnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null">
+        creatime = #{creatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="problem != null">
+        problem = #{problem,jdbcType=INTEGER},
+      </if>
+      <if test="yxtime != null">
+        yxtime = #{yxtime,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.device.bus.domain.Use">
+    update bus_use
+    set dname = #{dname,jdbcType=VARCHAR},
+      dnumber = #{dnumber,jdbcType=VARCHAR},
+      creatime = #{creatime,jdbcType=TIMESTAMP},
+      problem = #{problem,jdbcType=INTEGER},
+      yxtime = #{yxtime,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryAllUse" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bus_use
+		<where>
+			<if test="dname!=null and dname!=''">
+				and dname like concat("%",#{dname},"%")
+			</if>
+			<if test="startTime!=null">
+    		and creatime >=#{startTime}
+    		</if>
+    		<if test="endTime!=null">
+    		and creatime <![CDATA[<=]]> #{endTime}
+    		</if>
+    		<if test="problem!=null">
+    		and problem=#{problem}
+    		</if>
+			</where>
+		order by creatime 
+	</select>
+</mapper>
