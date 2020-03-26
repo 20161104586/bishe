@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.device.bus.mapper.ByrecordMapper">
+  <resultMap id="BaseResultMap" type="com.device.bus.domain.Byrecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dname" jdbcType="VARCHAR" property="dname" />
+    <result column="dnumber" jdbcType="VARCHAR" property="dnumber" />
+    <result column="usedeparment" jdbcType="VARCHAR" property="usedeparment" />
+    <result column="bycontext" jdbcType="VARCHAR" property="bycontext" />
+    <result column="plantime" jdbcType="TIMESTAMP" property="plantime" />
+    <result column="finaltime" jdbcType="TIMESTAMP" property="finaltime" />
+    <result column="bypeople" jdbcType="VARCHAR" property="bypeople" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dname, dnumber, usedeparment, bycontext, plantime, finaltime, bypeople
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_byrecord
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_byrecord
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.device.bus.domain.Byrecord">
+    insert into bus_byrecord (id, dname, dnumber, 
+      usedeparment, bycontext, plantime, 
+      finaltime, bypeople)
+    values (#{id,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR}, #{dnumber,jdbcType=VARCHAR}, 
+      #{usedeparment,jdbcType=VARCHAR}, #{bycontext,jdbcType=VARCHAR}, #{plantime,jdbcType=TIMESTAMP}, 
+      #{finaltime,jdbcType=TIMESTAMP}, #{bypeople,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.device.bus.domain.Byrecord">
+    insert into bus_byrecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dname != null">
+        dname,
+      </if>
+      <if test="dnumber != null">
+        dnumber,
+      </if>
+      <if test="usedeparment != null">
+        usedeparment,
+      </if>
+      <if test="bycontext != null">
+        bycontext,
+      </if>
+      <if test="plantime != null">
+        plantime,
+      </if>
+      <if test="finaltime != null">
+        finaltime,
+      </if>
+      <if test="bypeople != null">
+        bypeople,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null">
+        #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dnumber != null">
+        #{dnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="usedeparment != null">
+        #{usedeparment,jdbcType=VARCHAR},
+      </if>
+      <if test="bycontext != null">
+        #{bycontext,jdbcType=VARCHAR},
+      </if>
+      <if test="plantime != null">
+        #{plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finaltime != null">
+        #{finaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bypeople != null">
+        #{bypeople,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.device.bus.domain.Byrecord">
+    update bus_byrecord
+    <set>
+      <if test="dname != null">
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dnumber != null">
+        dnumber = #{dnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="usedeparment != null">
+        usedeparment = #{usedeparment,jdbcType=VARCHAR},
+      </if>
+      <if test="bycontext != null">
+        bycontext = #{bycontext,jdbcType=VARCHAR},
+      </if>
+      <if test="plantime != null">
+        plantime = #{plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finaltime != null">
+        finaltime = #{finaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bypeople != null">
+        bypeople = #{bypeople,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.device.bus.domain.Byrecord">
+    update bus_byrecord
+    set dname = #{dname,jdbcType=VARCHAR},
+      dnumber = #{dnumber,jdbcType=VARCHAR},
+      usedeparment = #{usedeparment,jdbcType=VARCHAR},
+      bycontext = #{bycontext,jdbcType=VARCHAR},
+      plantime = #{plantime,jdbcType=TIMESTAMP},
+      finaltime = #{finaltime,jdbcType=TIMESTAMP},
+      bypeople = #{bypeople,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

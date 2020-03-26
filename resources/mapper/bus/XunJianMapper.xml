@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.device.bus.mapper.XunJianMapper">
+  <resultMap id="BaseResultMap" type="com.device.bus.domain.XunJian">
+    <id column="xid" jdbcType="INTEGER" property="xid" />
+    <result column="xname" jdbcType="VARCHAR" property="xname" />
+    <result column="xnumber" jdbcType="VARCHAR" property="xnumber" />
+    <result column="people" jdbcType="VARCHAR" property="people" />
+    <result column="xtime" jdbcType="TIMESTAMP" property="xtime" />
+    <result column="cpeople" jdbcType="VARCHAR" property="cpeople" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    xid, xname, xnumber, people, xtime, cpeople, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_xunjian
+    where xid = #{xid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_xunjian
+    where xid = #{xid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.device.bus.domain.XunJian">
+    insert into bus_xunjian (xid, xname, xnumber, 
+      people, xtime, cpeople, 
+      content)
+    values (#{xid,jdbcType=INTEGER}, #{xname,jdbcType=VARCHAR}, #{xnumber,jdbcType=VARCHAR}, 
+      #{people,jdbcType=VARCHAR}, #{xtime,jdbcType=TIMESTAMP}, #{cpeople,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.device.bus.domain.XunJian">
+    insert into bus_xunjian
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xid != null">
+        xid,
+      </if>
+      <if test="xname != null">
+        xname,
+      </if>
+      <if test="xnumber != null">
+        xnumber,
+      </if>
+      <if test="people != null">
+        people,
+      </if>
+      <if test="xtime != null">
+        xtime,
+      </if>
+      <if test="cpeople != null">
+        cpeople,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xid != null">
+        #{xid,jdbcType=INTEGER},
+      </if>
+      <if test="xname != null">
+        #{xname,jdbcType=VARCHAR},
+      </if>
+      <if test="xnumber != null">
+        #{xnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="people != null">
+        #{people,jdbcType=VARCHAR},
+      </if>
+      <if test="xtime != null">
+        #{xtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpeople != null">
+        #{cpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.device.bus.domain.XunJian">
+    update bus_xunjian
+    <set>
+      <if test="xname != null">
+        xname = #{xname,jdbcType=VARCHAR},
+      </if>
+      <if test="xnumber != null">
+        xnumber = #{xnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="people != null">
+        people = #{people,jdbcType=VARCHAR},
+      </if>
+      <if test="xtime != null">
+        xtime = #{xtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpeople != null">
+        cpeople = #{cpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where xid = #{xid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.device.bus.domain.XunJian">
+    update bus_xunjian
+    set xname = #{xname,jdbcType=VARCHAR},
+      xnumber = #{xnumber,jdbcType=VARCHAR},
+      people = #{people,jdbcType=VARCHAR},
+      xtime = #{xtime,jdbcType=TIMESTAMP},
+      cpeople = #{cpeople,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR}
+    where xid = #{xid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryAllXunJian" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bus_xunjian
+		<where>
+			<if test="xname!=null and xname!=''">
+				and xname like concat("%",#{xname},"%")
+			</if>
+			<if test="cpeople!=null and cpeople!=''">
+				and cpeople like concat("%",#{cpeople},"%")
+			</if>
+			<if test="startTime!=null">
+    		and xtime >=#{startTime}
+    		</if>
+    		<if test="endTime!=null">
+    		and xtime <![CDATA[<=]]> #{endTime}
+    		</if>
+			</where>
+		order by xtime 
+	</select>
+</mapper>

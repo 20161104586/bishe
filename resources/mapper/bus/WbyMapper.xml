@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.device.bus.mapper.WbyMapper">
+  <resultMap id="BaseResultMap" type="com.device.bus.domain.Wby">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dname" jdbcType="VARCHAR" property="dname" />
+    <result column="dnumber" jdbcType="VARCHAR" property="dnumber" />
+    <result column="usedeparment" jdbcType="VARCHAR" property="usedeparment" />
+    <result column="wbyreason" jdbcType="VARCHAR" property="wbyreason" />
+    <result column="creattime" jdbcType="VARCHAR" property="creattime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dname, dnumber, usedeparment, wbyreason, creattime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bus_wby
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bus_wby
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.device.bus.domain.Wby">
+    insert into bus_wby (id, dname, dnumber, 
+      usedeparment, wbyreason, creattime
+      )
+    values (#{id,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR}, #{dnumber,jdbcType=VARCHAR}, 
+      #{usedeparment,jdbcType=VARCHAR}, #{wbyreason,jdbcType=VARCHAR}, #{creattime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.device.bus.domain.Wby">
+    insert into bus_wby
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dname != null">
+        dname,
+      </if>
+      <if test="dnumber != null">
+        dnumber,
+      </if>
+      <if test="usedeparment != null">
+        usedeparment,
+      </if>
+      <if test="wbyreason != null">
+        wbyreason,
+      </if>
+      <if test="creattime != null">
+        creattime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null">
+        #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dnumber != null">
+        #{dnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="usedeparment != null">
+        #{usedeparment,jdbcType=VARCHAR},
+      </if>
+      <if test="wbyreason != null">
+        #{wbyreason,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null">
+        #{creattime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.device.bus.domain.Wby">
+    update bus_wby
+    <set>
+      <if test="dname != null">
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+      <if test="dnumber != null">
+        dnumber = #{dnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="usedeparment != null">
+        usedeparment = #{usedeparment,jdbcType=VARCHAR},
+      </if>
+      <if test="wbyreason != null">
+        wbyreason = #{wbyreason,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null">
+        creattime = #{creattime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.device.bus.domain.Wby">
+    update bus_wby
+    set dname = #{dname,jdbcType=VARCHAR},
+      dnumber = #{dnumber,jdbcType=VARCHAR},
+      usedeparment = #{usedeparment,jdbcType=VARCHAR},
+      wbyreason = #{wbyreason,jdbcType=VARCHAR},
+      creattime = #{creattime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
